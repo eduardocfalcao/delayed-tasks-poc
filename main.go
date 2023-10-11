@@ -73,6 +73,11 @@ func main() {
 	}
 }
 
+// Initial State
+// Stopped ->
+// Delaying ->
+// Delaying ->
+// Running -> Stopped
 type TaskStatus int
 
 const (
