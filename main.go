@@ -10,6 +10,8 @@ import (
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/eduardocfalcao/delayed-funcs/task"
 )
 
 func Info(info string) {
@@ -34,12 +36,12 @@ func main() {
 	address := fmt.Sprintf(":%d", 8081)
 	mux := http.NewServeMux()
 
-	delayedTask := NewDelayedTask(Task)
+	delayedTask := task.NewDelayedTaskChan(Task)
 	mux.HandleFunc("/process", func(w http.ResponseWriter, r *http.Request) {
 		delayedTask.Run()
 	})
 
-	longDelayedTask := NewDelayedTask(LongTask)
+	longDelayedTask := task.NewDelayedTaskChan(LongTask)
 	mux.HandleFunc("/long-process", func(w http.ResponseWriter, r *http.Request) {
 		longDelayedTask.Run()
 	})
